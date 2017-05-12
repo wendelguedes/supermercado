@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Supermercado</title>
+<link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="css/custom.css" rel="stylesheet" />
+</head>
+
+<body>
+	<div class="container">
+
+		<form action="salvarProduto" method="POST">
+			<div class="form-group">
+				<label class="control-label col-md-3 col-sm-3 col-xs-12" for="descricao">Descrição do produto</label>
+				<input type="text" class="form-control"	id="descricao" name="descricao" placeholder="Descreve o produto" />
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-md-3 col-sm-3 col-xs-12" for="unidadeMedida">Unidade de medida</label>
+				<select class="form-control">
+					<option th:each="unidade : ${T(br.com.supermercado.model.EnumUnidadeMedida).values()}" th:value="${unidade}" th:text="${unidade.descricao}"></option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-md-3 col-sm-3 col-xs-12" for="preco">Preço</label>
+				<input type="text" class="form-control" id="preco" name="preco" placeholder="preco" />
+			</div>
+
+			<button type="submit" class="btn btn-success">
+				<span class="glyphicon glyphicon-ok"></span> Salvar
+			</button>
+		</form>
+
+		<div class="clearfix"></div>
+
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>
+					Produtos <small>Listagem de produtos cadastrados</small>
+				</h2>
+				<ul class="nav navbar-right panel_toolbox">
+					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i
+							class="fa fa-wrench"></i></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#">Settings 1</a></li>
+							<li><a href="#">Settings 2</a></li>
+						</ul></li>
+					<li><a class="close-link"><i class="fa fa-close"></i></a></li>
+				</ul>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Descrição do produto</th>
+							<th>Unidade de Medida</th>
+							<th>Preço</th>
+						</tr>
+					</thead>
+					<tr th:each="produto : ${produtos}">
+						<td><span th:text="${produto.descricao}"></span></td>
+						<td><span th:text="${produto.unidadeMedida}"></span></td>
+						<td><span th:text="${produto.preco}"></span></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+	</div>
+	<!--container-->
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+</body>
+</html>
