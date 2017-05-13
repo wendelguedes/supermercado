@@ -2,6 +2,7 @@ package br.com.supermercado.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.supermercado.model.Produto;
 import br.com.supermercado.repository.ProdutoRepository;
@@ -12,6 +13,7 @@ public class ProdutoService {
 	@Autowired
 	private ProdutoRepository produtoRepository;
 
+	@RequestMapping("/listarProdutos")
 	public Iterable<Produto> listarTodos(){
 		return produtoRepository.findAll();
 	}
