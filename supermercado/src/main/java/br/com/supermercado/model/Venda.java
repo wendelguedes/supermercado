@@ -11,17 +11,20 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Transient;
 
 @Entity
 public class Venda {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(generator="venda_seq", strategy=GenerationType.SEQUENCE)
+	@SequenceGenerator(name="venda_seq", sequenceName="venda_seq", allocationSize=1,initialValue=1)
 	private Long id;
 
 	@ManyToOne(optional=false)
@@ -30,11 +33,7 @@ public class Venda {
 	@ManyToOne(optional=false)
 	@JoinColumn(name = "funcionario_id")
 	private Funcionario funcionario;
-	
-	@ManyToOne(optional=false)
-	@JoinColumn(name = "cliente_id")
-	private Cliente cliente;
-	
+		
 	private Date dataVenda;
 	
 	@Enumerated(EnumType.STRING)

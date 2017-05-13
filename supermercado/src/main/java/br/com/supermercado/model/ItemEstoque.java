@@ -8,16 +8,19 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 public class ItemEstoque {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(generator="item_estoque_seq", strategy=GenerationType.SEQUENCE)
+	@SequenceGenerator(name="item_estoque_seq", sequenceName="item_estoque_seq", allocationSize=1,initialValue=1)
 	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY,optional=false)
