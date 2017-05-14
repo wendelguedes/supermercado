@@ -12,17 +12,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import br.com.supermercado.model.Estoque;
 import br.com.supermercado.model.ItemEstoque;
+import br.com.supermercado.model.Produto;
 import br.com.supermercado.service.EstoqueService;
+import br.com.supermercado.service.ProdutoService;
 
 @Controller
 public class EstoqueController {
 
 	@Autowired
 	private EstoqueService estoqueService;
+	
+	@Autowired
+	private ProdutoService produtoService;
 
 	@RequestMapping("/estoque")
 	public String listarBalancas(Model model){
 		Estoque estoque = new Estoque();
+		
+		Produto produto = produtoService.pesquisarPorId(1l);
+		
+		estoque.setProduto(produto);
 		
 		estoque.addItemEstoque(new ItemEstoque(new BigDecimal(100)));
 		estoque.addItemEstoque(new ItemEstoque(new BigDecimal(152)));
