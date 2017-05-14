@@ -38,9 +38,9 @@
 						<div class="form-group">
 							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="balanca">Balança:</label>
 							
-							<select class="form-control" th:field="*{balanca}">
+							<select class="form-control">
 								<option th:each="balanca : ${balancas}"
-								 th:value="${balanca.id}" 
+								 th:value="${balanca}" 
 								 th:text="${balanca.descricao}"></option>
 							</select>
 														
