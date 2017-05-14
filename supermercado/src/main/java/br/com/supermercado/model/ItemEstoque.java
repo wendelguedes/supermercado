@@ -33,4 +33,36 @@ public class ItemEstoque {
 	@JoinColumn(name="item_estoque_id")
 	private List<SubItemEstoque> subItensEstoque = new ArrayList<>();
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Produto getProduto() {
+		return produto;
+	}
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+	}
+
+	public BigDecimal getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(BigDecimal quantidade) {
+		this.quantidade = quantidade;
+	}
+
+	public List<SubItemEstoque> getSubItensEstoque() {
+		return subItensEstoque;
+	}
+
+	public void setSubItensEstoque(List<SubItemEstoque> subItensEstoque) {
+		this.subItensEstoque = subItensEstoque;
+	}
+
 }

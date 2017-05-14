@@ -29,6 +29,8 @@ public class ItemVenda {
 
 	private BigDecimal valor;
 
+	private int quantidade;
+	
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	private Calendar data;
@@ -45,5 +47,23 @@ public class ItemVenda {
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
 	}
-
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public int getQuantidade() {
+		return quantidade;
+	}
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
+	}
+	public Calendar getData() {
+		return data;
+	}
+	public void setData(Calendar data) {
+		this.data = data;
+	}
+	
 }

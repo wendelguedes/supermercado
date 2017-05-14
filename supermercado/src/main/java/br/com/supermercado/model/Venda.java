@@ -59,4 +59,60 @@ public class Venda {
 				valorPagoDinheiro.subtract(this.valorTotalVenda()) : BigDecimal.ZERO;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Caixa getCaixa() {
+		return caixa;
+	}
+
+	public void setCaixa(Caixa caixa) {
+		this.caixa = caixa;
+	}
+
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
+	}
+
+	public Date getDataVenda() {
+		return dataVenda;
+	}
+
+	public void setDataVenda(Date dataVenda) {
+		this.dataVenda = dataVenda;
+	}
+
+	public EnumTipoPagamento getTipoPagamento() {
+		return tipoPagamento;
+	}
+
+	public void setTipoPagamento(EnumTipoPagamento tipoPagamento) {
+		this.tipoPagamento = tipoPagamento;
+	}
+
+	public List<ItemVenda> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<ItemVenda> itens) {
+		this.itens = itens;
+	}
+
+	public BigDecimal getValorPagoDinheiro() {
+		return valorPagoDinheiro;
+	}
+
+	public void setValorPagoDinheiro(BigDecimal valorPagoDinheiro) {
+		this.valorPagoDinheiro = valorPagoDinheiro;
+	}
+
 }
