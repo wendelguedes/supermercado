@@ -1,76 +1,97 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Supermercado</title>
-<link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet" />
-<link href="css/custom.css" rel="stylesheet" />
-</head>
-
+<html lang="pt" data-layout-decorate="~{fragments/layout}">
 <body>
-	<div class="container">
+<div class="right_col" role="main" data-layout-fragment="content">
+    <div class="">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Caixa</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Settings 1</a>
+                                    </li>
+                                    <li><a href="#">Settings 2</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                    
+                    	<!-- Conteudo -->
+                        <form action="salvarCaixa" method="POST">
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="descricao">Descrição do Caixa:</label>
+							<input type="text" class="form-control"	id="descricao" name="descricao" placeholder="Descreve o caixa" />
+						</div>
+						
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="balanca">Balança:</label>
+							
+							<select class="form-control" th:field="*{balanca}">
+								<option th:each="balanca : ${balancas}"
+								 th:value="${balanca.id}" 
+								 th:text="${balanca.descricao}"></option>
+							</select>
+														
+						</div>
+			
+						<button type="submit" class="btn btn-success">
+							<span class="glyphicon glyphicon-ok"></span> Salvar
+						</button>
+					</form>
+			
+					<div class="clearfix"></div>
+			
+					<div class="x_panel">
+						<div class="x_title">
+							<h2>
+								Caixas <small>Listagem de caixas cadastrados</small>
+							</h2>
+							<ul class="nav navbar-right panel_toolbox">
+								<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+								<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i
+										class="fa fa-wrench"></i></a>
+									<ul class="dropdown-menu" role="menu">
+										<li><a href="#">Settings 1</a></li>
+										<li><a href="#">Settings 2</a></li>
+									</ul></li>
+								<li><a class="close-link"><i class="fa fa-close"></i></a></li>
+							</ul>
+							<div class="clearfix"></div>
+						</div>
+						<div class="x_content">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th scope="row">Descrição do caixa</th>
+										<th scope="row">Balança</th>
+									</tr>
+								</thead>
+								<tr th:each="caixa : ${caixas}">
+									<td><span th:text="${caixa.descricao}"></span></td>
+									<td><span th:text="${caixa.balanca.descricao}"></span></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+						<!-- Fim do conteudo -->
 
-		<form action="salvarCaixa" method="POST">
-			<div class="form-group">
-				<label class="control-label col-md-3 col-sm-3 col-xs-12" for="descricao">Descrição da balança</label>
-				<input type="text" class="form-control"	id="descricao" name="descricao" placeholder="Descreve a balança" />
-			</div>
-
-			<div class="form-group">
-				<label class="control-label col-md-3 col-sm-3 col-xs-12" for="balanca">Balança</label>
-				
-				<select class="form-control" th:field="*{balanca}">
-				  <option th:each="balanca : ${balancas}" 
-				          th:value="${balanca}" 
-				          th:text="${balanca.descricao}"></option>
-				</select>
-
-			</div>
-
-			<button type="submit" class="btn btn-success">
-				<span class="glyphicon glyphicon-ok"></span> Salvar
-			</button>
-		</form>
-
-		<div class="clearfix"></div>
-
-		<div class="x_panel">
-			<div class="x_title">
-				<h2>
-					Caixas <small>Listagem de caixas cadastrados</small>
-				</h2>
-				<ul class="nav navbar-right panel_toolbox">
-					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i
-							class="fa fa-wrench"></i></a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a href="#">Settings 1</a></li>
-							<li><a href="#">Settings 2</a></li>
-						</ul></li>
-					<li><a class="close-link"><i class="fa fa-close"></i></a></li>
-				</ul>
-				<div class="clearfix"></div>
-			</div>
-			<div class="x_content">
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th scope="row">Descrição do caixa</th>
-							<th scope="row">Balança</th>
-						</tr>
-					</thead>
-					<tr th:each="caixa : ${caixas}">
-						<td><span th:text="${caixa.descricao}"></span></td>
-						<td><span th:text="${caixa.balanca.descricao}"></span></td>
-					</tr>
-				</table>
-			</div>
-		</div>
-
-	</div>
-	<!--container-->
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

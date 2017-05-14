@@ -27,10 +27,6 @@ public class ProdutoController {
 
 		produtoService.salvar(produto);
 
-		//		Iterable<Produto> convidados = produtoService.listarTodos();
-		//		model.addAttribute("convidados", convidados);
-		//
-		//		return "convidados";
 		return listarProdutos(model);
 	}
 

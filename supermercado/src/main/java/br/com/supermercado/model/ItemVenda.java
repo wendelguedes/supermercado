@@ -1,6 +1,7 @@
 package br.com.supermercado.model;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class ItemVenda {
@@ -21,8 +26,12 @@ public class ItemVenda {
 	@ManyToOne(optional=false)
 	@JoinColumn(name = "produto_id")
 	private Produto produto;
-	
+
 	private BigDecimal valor;
+
+	@DateTimeFormat(pattern="dd/MM/yyyy")
+	@Temporal(TemporalType.DATE)
+	private Calendar data;
 
 	public Produto getProduto() {
 		return produto;

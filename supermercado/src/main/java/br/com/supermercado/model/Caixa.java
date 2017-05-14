@@ -8,6 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 public class Caixa {
 
@@ -16,6 +18,7 @@ public class Caixa {
 	@SequenceGenerator(name="caixa_seq", sequenceName="caixa_seq", allocationSize=1,initialValue=1)
 	private Long id;
 	
+	@NotBlank(message="Preencha o campo descrição")
 	private String descricao;
 
 	@ManyToOne(optional=false)
