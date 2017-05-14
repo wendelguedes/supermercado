@@ -1,17 +1,16 @@
 package br.com.supermercado.controller;
 
-import java.math.BigDecimal;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.supermercado.model.Estoque;
-import br.com.supermercado.model.ItemEstoque;
 import br.com.supermercado.model.Produto;
 import br.com.supermercado.service.EstoqueService;
 import br.com.supermercado.service.ProdutoService;
@@ -21,34 +20,33 @@ public class EstoqueController {
 
 	@Autowired
 	private EstoqueService estoqueService;
-	
+
 	@Autowired
 	private ProdutoService produtoService;
 
 	@RequestMapping("/estoque")
-	public String listarBalancas(Model model){
-		Estoque estoque = new Estoque();
+	public String listarEstoque(Model model){
+		Iterable<Produto> produtos = produtoService.listarTodos();
+		model.addAttribute("produtos", produtos);
 		
-		Produto produto = produtoService.pesquisarPorId(1l);
+		Iterable<Estoque> estoques = estoqueService.listarTodos();
+		model.addAttribute("estoques", estoques);
 		
-		estoque.setProduto(produto);
-		
-		estoque.addItemEstoque(new ItemEstoque(new BigDecimal(100)));
-		estoque.addItemEstoque(new ItemEstoque(new BigDecimal(152)));
-		estoque.addItemEstoque(new ItemEstoque(new BigDecimal(11)));
-		
-		System.out.println(estoque.getTotalProdutosEstoque());
+		model.addAttribute("estoque", new Estoque());
 
-		model.addAttribute("estoque", estoque);
 		return "estoque";
 	}
 
 	@RequestMapping(value= "salvarEstoque", method = RequestMethod.POST)
-	public String salvar(@Valid Estoque estoque, Model model){
-
+	public String salvar(@Valid Estoque estoque, BindingResult result, RedirectAttributes redirectAttributes, Model model){
+				
 		estoqueService.salvar(estoque);
+		
+		if(result.hasErrors()){
+			return listarEstoque(model);
+		}
 
-		return listarBalancas(model);
+		return listarEstoque(model);
 	}
 
 }

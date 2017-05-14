@@ -29,17 +29,18 @@
                     <div class="x_content">
                     
                     	<!-- Conteudo -->
-                        <form action="salvarBalanca" method="POST">
+                        <form th:action="@{/salvarEstoque}" th:object="${estoque}" method="POST">
 							<div class="form-group">
-								<label class="control-label col-md-3 col-sm-3 col-xs-12" for="descricao">Produto</label>
-								<input type="text" class="form-control"	id="descricao" name="descricao" placeholder="Selecione o produto" />
+								<label class="control-label col-md-3 col-sm-3 col-xs-12" for="balanca">Produtos:</label>
+								
+								<select class="form-control" th:field="*{produto}">
+									<option th:value="${null}" label="Selecione o produto" disabled="disabled"></option>
+									<option th:each="produto : ${produtos}"
+									 	th:value="${produto.id}" 
+									 	th:text="${produto.descricao}"></option>
+								</select>
 							</div>
-				
-							<div class="form-group">
-								<label class="control-label col-md-3 col-sm-3 col-xs-12" for="marca">Quantidade</label>
-								<input type="text" class="form-control"	id="marca" name="marca" placeholder="Informe a quantidade" />
-							</div>
-				
+								
 							<button type="submit" class="btn btn-success">
 								<span class="glyphicon glyphicon-ok"></span> Salvar
 							</button>
@@ -68,13 +69,13 @@
 								<table class="table table-hover">
 									<thead>
 										<tr>
-											<th scope="row">Quantidade</th>
-											<th scope="row">Data Entrada</th>
+											<th scope="row">Produto</th>
+											<th scope="row">Produtos em Estoque</th>
 										</tr>
 									</thead>
-									<tr th:each="itemEstoque : ${estoque.itensEstoque}">
-										<td><span th:text="${itemEstoque.dataEntrada}"></span></td>
-										<td><span th:text="${itemEstoque.quantidade}"></span></td>
+									<tr th:each="estoque : ${estoques}">
+										<td><span th:text="${estoque.produto.descricao}"></span></td>
+										<td><span th:text="${estoque.totalProdutosEstoque}"></span></td>
 									</tr>
 								</table>
 							</div>

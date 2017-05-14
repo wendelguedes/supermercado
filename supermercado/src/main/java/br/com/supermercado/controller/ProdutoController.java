@@ -40,6 +40,4 @@ public class ProdutoController {
 		return listarProdutos(model);
 	}
 
-
-
 }

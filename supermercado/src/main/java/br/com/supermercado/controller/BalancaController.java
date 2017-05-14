@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.supermercado.model.Balanca;
-import br.com.supermercado.model.Caixa;
 import br.com.supermercado.service.BalancaService;
 
 @Controller
