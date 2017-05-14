@@ -27,7 +27,7 @@ public class ItemVenda {
 	@JoinColumn(name = "produto_id")
 	private Produto produto;
 
-	private BigDecimal valor;
+	private BigDecimal valor = BigDecimal.ZERO;
 
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)

@@ -1,5 +1,6 @@
 package br.com.supermercado.model;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
@@ -21,30 +23,48 @@ public class Estoque {
 	@SequenceGenerator(name="estoque_seq", sequenceName="estoque_seq", allocationSize=1,initialValue=1)
 	private Long id;
 
-	private String descricao;
+	@ManyToOne(fetch = FetchType.LAZY,optional=false)
+	@JoinColumn(name = "produto_id")
+	private Produto produto;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private BigDecimal totalProdutosEstoque = BigDecimal.ZERO;
+
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JoinColumn(name="estoque_id")
 	private List<ItemEstoque> itensEstoque = new ArrayList<>();
 
-	public String getDescricao() {
-		return descricao;
+	public void addItemEstoque(ItemEstoque itemEstoque){
+		this.itensEstoque.add(itemEstoque);
+		this.totalProdutosEstoque = this.totalProdutosEstoque.add(itemEstoque.getQuantidade());
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void removerItemEstoque(ItemEstoque itemEstoque){
+		this.itensEstoque.remove(itemEstoque);
+		this.totalProdutosEstoque = this.totalProdutosEstoque.subtract(itemEstoque.getQuantidade());
 	}
 
-	public List<ItemEstoque> getItensEstoque() {
-		return itensEstoque;
+	public Produto getProduto() {
+		return produto;
 	}
 
-	public void setItensEstoque(List<ItemEstoque> itensEstoque) {
-		this.itensEstoque = itensEstoque;
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+	}
+
+	public BigDecimal getTotalProdutosEstoque() {
+		return totalProdutosEstoque;
+	}
+
+	public void setTotalProdutosEstoque(BigDecimal totalProdutosEstoque) {
+		this.totalProdutosEstoque = totalProdutosEstoque;
 	}
 
 	public Long getId() {
 		return id;
+	}
+
+	public List<ItemEstoque> getItensEstoque() {
+		return itensEstoque;
 	}
 
 }

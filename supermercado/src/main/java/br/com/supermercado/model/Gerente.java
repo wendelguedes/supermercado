@@ -16,4 +16,16 @@ public class Gerente extends Funcionario {
 	
 	private String area;
 
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
 }

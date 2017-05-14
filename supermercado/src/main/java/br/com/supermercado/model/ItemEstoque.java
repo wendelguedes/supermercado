@@ -1,19 +1,15 @@
 package br.com.supermercado.model;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class ItemEstoque {
@@ -23,14 +19,34 @@ public class ItemEstoque {
 	@SequenceGenerator(name="item_estoque_seq", sequenceName="item_estoque_seq", allocationSize=1,initialValue=1)
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.LAZY,optional=false)
-	@JoinColumn(name = "produto_id")
-	private Produto produto;
+	private BigDecimal quantidade = BigDecimal.ZERO;
 
-	private BigDecimal quantidade;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataEntrada = new Date();
 
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	@JoinColumn(name="item_estoque_id")
-	private List<SubItemEstoque> subItensEstoque = new ArrayList<>();
+	public ItemEstoque() {}
 
+	public ItemEstoque(BigDecimal quantidade) {
+		this.quantidade = quantidade;
+	}
+
+	public BigDecimal getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(BigDecimal quantidade) {
+		this.quantidade = quantidade;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public Date getDataEntrada() {
+		return dataEntrada;
+	}
+
+	public void setDataEntrada(Date dataEntrada) {
+		this.dataEntrada = dataEntrada;
+	}
 }

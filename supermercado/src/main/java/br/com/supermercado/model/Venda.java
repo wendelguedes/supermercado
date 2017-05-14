@@ -17,6 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 @Entity
@@ -34,7 +36,8 @@ public class Venda {
 	@JoinColumn(name = "funcionario_id")
 	private Funcionario funcionario;
 		
-	private Date dataVenda;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataVenda = new Date();
 	
 	@Enumerated(EnumType.STRING)
 	private EnumTipoPagamento tipoPagamento;
