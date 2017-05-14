@@ -19,5 +19,17 @@ public class ProdutoService {
 	public void salvar(Produto produto) {
 		produtoRepository.save(produto);
 	}
+	
+	public Produto pesquisarPorId(Long id){
+		return produtoRepository.findOne(id);
+	}
+	
+	public Produto pesquisarPorDescricao(String descricao){
+		return produtoRepository.findByCodigo(descricao);
+	}
+	
+	public Produto pesquisarPorCodigo(String codigo){
+		return produtoRepository.findByCodigo(codigo);
+	}
 
 }

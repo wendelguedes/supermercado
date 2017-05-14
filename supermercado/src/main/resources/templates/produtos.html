@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt" data-layout-decorate="~{fragments/layout}">
+<html lang="pt-BR" data-layout-decorate="~{fragments/layout}">
 <body>
 <div class="right_col" role="main" data-layout-fragment="content">
     <div class="">
@@ -29,22 +29,28 @@
                     <div class="x_content">
                     
                     	<!-- Conteudo -->
-                        <form action="salvarProduto" method="POST">
+                        <form th:action="@{/salvarProduto}" th:object="${produto}" method="POST">
+                        
+                        <div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="descricao">Código do produto</label>
+							<input th:field="*{codigo}" type="text" class="form-control"	id="codigo" name="codigo" placeholder="Informe o código produto" />
+						</div>
 						<div class="form-group">
 							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="descricao">Descrição do produto</label>
-							<input type="text" class="form-control"	id="descricao" name="descricao" placeholder="Descreve o produto" />
+							<input th:field="*{descricao}" type="text" class="form-control"	id="descricao" name="descricao" placeholder="Descreve o produto" />
 						</div>
 			
 						<div class="form-group">
 							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="unidadeMedida">Unidade de medida</label>
-							<select class="form-control">
+							<select th:field="*{unidadeMedida}" class="form-control">
+								<option th:value="${null}" label="Selecione a Unidade de Medida" disabled="disabled"></option>
 								<option th:each="unidade : ${T(br.com.supermercado.model.EnumUnidadeMedida).values()}" th:value="${unidade}" th:text="${unidade.descricao}"></option>
 							</select>
 						</div>
 			
 						<div class="form-group">
 							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="preco">Preço</label>
-							<input type="text" class="form-control" id="preco" name="preco" placeholder="preco" />
+							<input th:field="*{preco}" type="text" class="form-control" id="preco" name="preco" placeholder="preco" />
 						</div>
 			
 						<button type="submit" class="btn btn-success">

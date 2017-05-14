@@ -29,9 +29,9 @@ public class ItemEstoque {
 
 	private BigDecimal quantidade;
 
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	@JoinColumn(name="item_estoque_id")
-	private List<SubItemEstoque> subItensEstoque = new ArrayList<>();
+	//@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	//@JoinColumn(name="item_estoque_id")
+	//private List<SubItemEstoque> subItensEstoque = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -57,12 +57,5 @@ public class ItemEstoque {
 		this.quantidade = quantidade;
 	}
 
-	public List<SubItemEstoque> getSubItensEstoque() {
-		return subItensEstoque;
-	}
-
-	public void setSubItensEstoque(List<SubItemEstoque> subItensEstoque) {
-		this.subItensEstoque = subItensEstoque;
-	}
 
 }

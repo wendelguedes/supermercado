@@ -10,34 +10,43 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.supermercado.model.Estoque;
 import br.com.supermercado.model.Produto;
+import br.com.supermercado.service.EstoqueService;
 import br.com.supermercado.service.ProdutoService;
 
 @Controller
-public class ProdutoController {
+public class EstoqueController {
+
+	@Autowired
+	private EstoqueService estoqueService;
 
 	@Autowired
 	private ProdutoService produtoService;
 
-	@RequestMapping("/produtos")
-	public String listarProdutos(Model model){
+	@RequestMapping("/estoque")
+	public String listarEstoque(Model model){
 		Iterable<Produto> produtos = produtoService.listarTodos();
 		model.addAttribute("produtos", produtos);
-		model.addAttribute("produto", new Produto());
+		
+		Iterable<Estoque> estoques = estoqueService.listarTodos();
+		model.addAttribute("estoques", estoques);
+		
+		model.addAttribute("estoque", new Estoque());
 
-		return "produtos";
+		return "estoque";
 	}
 
-	@RequestMapping(value= "salvarProduto", method = RequestMethod.POST)
-	public String salvar(@Valid  Produto produto, BindingResult result, RedirectAttributes redirectAttributes, Model model){
-
-		produtoService.salvar(produto);
-
+	@RequestMapping(value= "salvarEstoque", method = RequestMethod.POST)
+	public String salvar(@Valid Estoque estoque, BindingResult result, RedirectAttributes redirectAttributes, Model model){
+				
+		estoqueService.salvar(estoque);
+		
 		if(result.hasErrors()){
-			return listarProdutos(model);
+			return listarEstoque(model);
 		}
 
-		return listarProdutos(model);
+		return listarEstoque(model);
 	}
 
 }

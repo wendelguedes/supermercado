@@ -4,10 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/")
 public class InicioController {
 
-	@RequestMapping("/")
-	public String index(){
+	@RequestMapping(value = "")
+	String index() {
 		return "index";
 	}
 
