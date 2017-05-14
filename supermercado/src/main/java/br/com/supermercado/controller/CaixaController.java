@@ -25,10 +25,11 @@ public class CaixaController {
 	private BalancaService balancaService;
 
 	@RequestMapping("/caixas")
-	public String listarBalancas(Model model){
+	public String listarCaixas(Model model){
 
 		Iterable<Caixa> caixas = caixaService.listarTodos();
 		model.addAttribute("caixas", caixas);
+		model.addAttribute("caixa", new Caixa());
 
 		Iterable<Balanca> balancas = balancaService.listarTodos();
 		model.addAttribute("balancas", balancas);
@@ -42,10 +43,10 @@ public class CaixaController {
 		caixaService.salvar(caixa);
 		
 		if(result.hasErrors()){
-			return listarBalancas(model);
+			return listarCaixas(model);
 		}
 
-		return listarBalancas(model);
+		return listarCaixas(model);
 
 
 	}

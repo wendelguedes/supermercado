@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt" data-layout-decorate="~{fragments/layout}">
+<html lang="pt-BR" data-layout-decorate="~{fragments/layout}">
 <body>
 <div class="right_col" role="main" data-layout-fragment="content">
     <div class="">
@@ -29,19 +29,21 @@
                     <div class="x_content">
                     
                     	<!-- Conteudo -->
-                        <form action="salvarCaixa" method="POST">
+
+                        <form th:action="@{/salvarCaixa}" method="POST" th:object="${caixa}">
 						<div class="form-group">
 							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="descricao">Descrição do Caixa:</label>
-							<input type="text" class="form-control"	id="descricao" name="descricao" placeholder="Descreve o caixa" />
+							<input type="text" class="form-control" th:field="*{descricao}" id="descricao" name="descricao" placeholder="Descreve o caixa" />
 						</div>
 						
 						<div class="form-group">
 							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="balanca">Balança:</label>
 							
-							<select class="form-control">
+							<select class="form-control" th:field="*{balanca}">
+								<option th:value="${null}" label="Selecione a Balança" disabled="disabled"></option>
 								<option th:each="balanca : ${balancas}"
-								 th:value="${balanca}" 
-								 th:text="${balanca.descricao}"></option>
+								 	th:value="${balanca.id}" 
+								 	th:text="${balanca.descricao}"></option>
 							</select>
 														
 						</div>
