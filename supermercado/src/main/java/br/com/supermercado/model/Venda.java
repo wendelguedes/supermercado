@@ -24,98 +24,98 @@ import javax.persistence.Transient;
 @Entity
 public class Venda {
 
-	@Id
-	@GeneratedValue(generator="venda_seq", strategy=GenerationType.SEQUENCE)
-	@SequenceGenerator(name="venda_seq", sequenceName="venda_seq", allocationSize=1,initialValue=1)
-	private Long id;
+    @Id
+    @GeneratedValue(generator="venda_seq", strategy=GenerationType.SEQUENCE)
+    @SequenceGenerator(name="venda_seq", sequenceName="venda_seq", allocationSize=1,initialValue=1)
+    private Long id;
 
-	@ManyToOne(optional=false)
-	private Caixa caixa;
-	
-	@ManyToOne(optional=false)
-	@JoinColumn(name = "funcionario_id")
-	private Funcionario funcionario;
-		
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataVenda = new Date();
-	
-	@Enumerated(EnumType.STRING)
-	private EnumTipoPagamento tipoPagamento;
-	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name="venda_id")
-	private List<ItemVenda> itens = new ArrayList<>();
+    @ManyToOne(optional=false)
+    private Caixa caixa;
 
-	@Transient
-	private BigDecimal valorPagoDinheiro = BigDecimal.ZERO;
+    @ManyToOne(optional=false)
+    @JoinColumn(name = "funcionario_id")
+    private Funcionario funcionario;
 
-	public BigDecimal valorTotalVenda(){
-		BigDecimal totalVenda = BigDecimal.ZERO;
-		for (ItemVenda itemVenda : itens) {
-			totalVenda = totalVenda.add(itemVenda.getValor());
-		}
-		return totalVenda;
-	}
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataVenda = new Date();
 
-	public BigDecimal valorTroco(){
-		return EnumTipoPagamento.DINHEIRO.equals(this.tipoPagamento) ? 
-				valorPagoDinheiro.subtract(this.valorTotalVenda()) : BigDecimal.ZERO;
-	}
+    @Enumerated(EnumType.STRING)
+    private EnumTipoPagamento tipoPagamento;
 
-	public Long getId() {
-		return id;
-	}
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name="venda_id")
+    private List<ItemVenda> itens = new ArrayList<>();
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    @Transient
+    private BigDecimal valorPagoDinheiro = BigDecimal.ZERO;
 
-	public Caixa getCaixa() {
-		return caixa;
-	}
+    public BigDecimal valorTotalVenda(){
+        BigDecimal totalVenda = BigDecimal.ZERO;
+        for (ItemVenda itemVenda : itens) {
+            totalVenda = totalVenda.add(itemVenda.getValor());
+        }
+        return totalVenda;
+    }
 
-	public void setCaixa(Caixa caixa) {
-		this.caixa = caixa;
-	}
+    public BigDecimal valorTroco(){
+        return EnumTipoPagamento.DINHEIRO.equals(this.tipoPagamento) ? 
+                valorPagoDinheiro.subtract(this.valorTotalVenda()) : BigDecimal.ZERO;
+    }
 
-	public Funcionario getFuncionario() {
-		return funcionario;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = funcionario;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Date getDataVenda() {
-		return dataVenda;
-	}
+    public Caixa getCaixa() {
+        return caixa;
+    }
 
-	public void setDataVenda(Date dataVenda) {
-		this.dataVenda = dataVenda;
-	}
+    public void setCaixa(Caixa caixa) {
+        this.caixa = caixa;
+    }
 
-	public EnumTipoPagamento getTipoPagamento() {
-		return tipoPagamento;
-	}
+    public Funcionario getFuncionario() {
+        return funcionario;
+    }
 
-	public void setTipoPagamento(EnumTipoPagamento tipoPagamento) {
-		this.tipoPagamento = tipoPagamento;
-	}
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
+    }
 
-	public List<ItemVenda> getItens() {
-		return itens;
-	}
+    public Date getDataVenda() {
+        return dataVenda;
+    }
 
-	public void setItens(List<ItemVenda> itens) {
-		this.itens = itens;
-	}
+    public void setDataVenda(Date dataVenda) {
+        this.dataVenda = dataVenda;
+    }
 
-	public BigDecimal getValorPagoDinheiro() {
-		return valorPagoDinheiro;
-	}
+    public EnumTipoPagamento getTipoPagamento() {
+        return tipoPagamento;
+    }
 
-	public void setValorPagoDinheiro(BigDecimal valorPagoDinheiro) {
-		this.valorPagoDinheiro = valorPagoDinheiro;
-	}
+    public void setTipoPagamento(EnumTipoPagamento tipoPagamento) {
+        this.tipoPagamento = tipoPagamento;
+    }
+
+    public List<ItemVenda> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<ItemVenda> itens) {
+        this.itens = itens;
+    }
+
+    public BigDecimal getValorPagoDinheiro() {
+        return valorPagoDinheiro;
+    }
+
+    public void setValorPagoDinheiro(BigDecimal valorPagoDinheiro) {
+        this.valorPagoDinheiro = valorPagoDinheiro;
+    }
 
 }
